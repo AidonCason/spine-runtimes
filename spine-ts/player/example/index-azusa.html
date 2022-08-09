@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<script src="../../build/spine-player.js"></script>
+	<link rel="stylesheet" href="../css/spine-player.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<style>
+	body {
+		background: gray;
+		margin: 0px;
+	}
+</style>
+
+<body>
+	<div id="container" style="width: 640px; height: 380px;"></div>
+	<div id="container-raptor" style="width: 640px; height: 380px;"></div>
+	<div>
+		<button id="attack">attack</button>
+		<button id="down">down</button>
+		<button id="idle">idle</button>
+		<button id="run">run</button>
+		<button id="skill">skill</button>
+		<button id="skill2">skill2</button>
+		<button id="walk">walk</button>
+	</div>
+</body>
+<script>
+	// Creates a new spine player. The debugRender option enables
+	// rendering of viewports and padding for debugging purposes.
+	new spine.SpinePlayer("container", {
+		// skelUrl: "assets/skeleton.skel",
+		jsonUrl: "assets/skeleton.json",
+		atlasUrl: "assets/skeleton.atlas",
+		animation: "run",
+		premultipliedAlpha: true,
+		backgroundColor: "#cccccc",
+		viewport: {
+			debugRender: true,
+		},
+		showControls: true,
+	});
+
+	// Creates a new spine player with a transparent background,
+	// so content from the website shines through. Hides the controls.
+	// Instead, the user can control the animation via buttons.
+	var jsControlledPlayer = new spine.SpinePlayer("container-raptor", {
+		jsonUrl: "assets/skeleton.json",
+		atlasUrl: "assets/skeleton.atlas",
+		animation: "walk",
+		showControls: false,
+		premultipliedAlpha: true,
+		backgroundColor: "#00000000",
+		alpha: true,
+		defaultMix: 1,
+		success: (player) => {
+			document.getElementById("attack").addEventListener("click", event => {
+				jsControlledPlayer.setAnimation("attack", false); // set the animation to play once
+			});
+
+			document.getElementById("down").addEventListener("click", event => {
+				jsControlledPlayer.setAnimation("down", false); // set the animation to play once
+			});
+
+			document.getElementById("idle").addEventListener("click", event => {
+				jsControlledPlayer.setAnimation("idle", true); // set the animation to loop
+			});
+
+			document.getElementById("run").addEventListener("click", event => {
+				jsControlledPlayer.setAnimation("run", true); // set the animation to loop
+			});
+
+			document.getElementById("skill").addEventListener("click", event => {
+				jsControlledPlayer.setAnimation("skill", true); // set the animation to loop
+			});
+
+			document.getElementById("skill2").addEventListener("click", event => {
+				jsControlledPlayer.setAnimation("skill2", true); // set the animation to loop
+			});
+
+			document.getElementById("walk").addEventListener("click", event => {
+				jsControlledPlayer.setAnimation("walk", true); // set the animation to loop
+			});
+		}
+	});
+</script>
+</body>
+
+</html>
